@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +13,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.allhome.AllHomeBaseApplication
 import com.example.allhome.NotificationReceiver
@@ -56,7 +53,7 @@ class ViewTodoFragment : Fragment() {
 
     private val mViewTodoFragmentViewModel: ViewTodoFragmentViewModel by viewModels{
         val todosDAO = (context?.applicationContext as AllHomeBaseApplication).todosDAO
-        val todoSubTasksDAO = (context?.applicationContext as AllHomeBaseApplication).todoSubTasksDAO
+        val todoSubTasksDAO = (context?.applicationContext as AllHomeBaseApplication).todoCheckListDAO
         ViewTodoFragmentViewModelFactory(todosDAO,todoSubTasksDAO)
 
     }

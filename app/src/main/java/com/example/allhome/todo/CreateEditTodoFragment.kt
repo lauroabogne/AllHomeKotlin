@@ -28,7 +28,6 @@ import com.example.allhome.data.entities.TodoChecklistEntity
 import com.example.allhome.databinding.FragmentCreateEditTodo2Binding
 import com.example.allhome.databinding.TodoItemSubTaskBinding
 import com.example.allhome.global_ui.CustomConfirmationDialog
-import com.example.allhome.global_ui.CustomMessageDialogFragment
 import com.example.allhome.global_ui.DateInMonthDialogFragment
 import com.example.allhome.todo.AddEditSubTaskDialogFragment.OnSubTaskSavedListener
 import com.example.allhome.todo.viewmodel.CreateEditTodoFragmentViewModel
@@ -58,7 +57,7 @@ class CreateEditTodoFragment : Fragment() {
 
         val database = (context?.applicationContext as AllHomeBaseApplication).database
         val todosDAO = (context?.applicationContext as AllHomeBaseApplication).todosDAO
-        val todoSubTasksDAO = (context?.applicationContext as AllHomeBaseApplication).todoSubTasksDAO
+        val todoSubTasksDAO = (context?.applicationContext as AllHomeBaseApplication).todoCheckListDAO
         val alarmRecordsDAO = (context?.applicationContext as AllHomeBaseApplication).alarmsRecordsDAO
 
 

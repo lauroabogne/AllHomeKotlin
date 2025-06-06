@@ -14,7 +14,7 @@ data class TodoEntity(
     @ColumnInfo(name = "description") var description:String,
     @ColumnInfo(name = "due_date",defaultValue="0000-00-00 00:00:00") var dueDate:String,
     @ColumnInfo(name = "repeat_every",defaultValue="0") var repeatEvery:Int,
-    @ColumnInfo(name = "repeat_every_type",defaultValue="0000-00-00 00:00:00") var repeatEveryType:String,
+    @ColumnInfo(name = "repeat_every_type",defaultValue="") var repeatEveryType:String,
     @ColumnInfo(name = "repeat_until",defaultValue="0000-00-00 00:00:00") var repeatUntil:String,
     @ColumnInfo(name = "notify_at",defaultValue="0") var notifyAt:Int,
     @ColumnInfo(name = "notify_every_type",defaultValue="none") var notifyEveryType:String,
