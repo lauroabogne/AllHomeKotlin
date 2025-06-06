@@ -7,7 +7,7 @@ import com.example.allhome.data.entities.TodoEntity
 import com.example.allhome.data.entities.TodoChecklistEntity
 
 @Dao
-interface TodoSubTasksDAO {
+interface TodoChecklistsDAO {
 
     @Insert
     fun saveMany(todoSubTasksEntities: List<TodoChecklistEntity>):List<Long>
@@ -46,5 +46,8 @@ interface TodoSubTasksDAO {
 
     @Query("DELETE FROM todo_checklists WHERE  created = modified AND todo_unique_id=:todoGroupUniqueId AND uploaded=${TodoChecklistEntity.NOT_UPLOADED}")
     fun deleteSelectedTodoAndFutureSubTasksAsDeleted(todoGroupUniqueId:String):Int
+
+    @Query("SELECT * FROM todo_checklists WHERE todo_unique_id = :todoUniqueId")
+    suspend fun getAllTodoChecklistsByTodoUniqueId(todoUniqueId: String): List<TodoChecklistEntity>
 
 }

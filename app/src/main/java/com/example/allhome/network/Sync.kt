@@ -2,15 +2,13 @@ package com.example.allhome.network
 
 import android.content.Context
 import android.util.Log
-import androidx.room.Transaction
-import androidx.room.withTransaction
 import com.example.allhome.AllHomeBaseApplication
 import com.example.allhome.SyncNotificationProgress
-import com.example.allhome.data.AllHomeDatabase
 import com.example.allhome.network.uploads.BillsPaymentsUpload
 import com.example.allhome.network.uploads.BillsUpload
 import com.example.allhome.network.uploads.ExpensesUpload
 import com.example.allhome.network.uploads.GroceryListUpload
+import com.example.allhome.network.uploads.TodosUpload
 import com.example.allhome.utils.ImageUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,11 +47,17 @@ class Sync private constructor(private val context: Context) {
     }
     private val groceryListUpload : GroceryListUpload by lazy{
         val groceryListDAO = (context as AllHomeBaseApplication).groceryListDAO
-        val groceryItemDAO = (context as AllHomeBaseApplication).groceryItemDAO
+        val groceryItemDAO = (context).groceryItemDAO
         GroceryListUpload(RetrofitInstance.api, groceryListDAO, groceryItemDAO)
     }
+
+    private val todosUpload: TodosUpload by lazy {
+        val todosDAO = (context as AllHomeBaseApplication).todosDAO
+        val todoChecklistsDAO = (context).todoCheckListDAO
+        TodosUpload(RetrofitInstance.api,todosDAO, todoChecklistsDAO)
+    }
     // List of tables to sync
-    private val NEED_TO_SYNC = arrayOf("Bills","Bills Payments", "Expenses","Grocery List")
+    private val NEED_TO_SYNC = arrayOf("Bills","Bills Payments", "Expenses","Grocery List","Todos")
 
     // Notification instance
     private val syncNotification = SyncNotificationProgress(context)
@@ -107,6 +111,12 @@ class Sync private constructor(private val context: Context) {
                         groceryListUpload()
                         delay(1000)
                         syncNotification.showDetailedProgressMessageNotification("Preparing to upload grocery list")
+                    }
+                    "Todos" ->{
+                        todosUpload()
+                        delay(1000)
+                        syncNotification.showDetailedProgressMessageNotification("Preparing to upload todos")
+
                     }
                 }
 
@@ -190,7 +200,6 @@ class Sync private constructor(private val context: Context) {
             syncNotification.showDetailedProgressNotification("Expense upload ",index + 1 , uniqueIdsToUpload.size);
         }
     }
-
     private suspend fun groceryListUpload(){
 
         val uniqueIdsToUpload =  groceryListUpload.getGroceryListUniqueIdToUpload()
@@ -228,5 +237,25 @@ class Sync private constructor(private val context: Context) {
 //            delay(3000)
 //            syncNotification.showDetailedProgressNotification("Expense upload ",index + 1 , uniqueIdsToUpload.size);
 //        }
+    }
+    private suspend fun todosUpload(){
+
+        val uniqueIdsToUpload =  todosUpload.getTodosUniqueIdToUpload()
+
+        uniqueIdsToUpload.forEachIndexed(){ index, uniqueId ->
+            val todoEntity = todosUpload.getTodoByUniqueId(uniqueId)
+            todoEntity.let {
+                val todoChecklist = todosUpload.getTodoChecklistByTodoUniqueId(uniqueId)
+                val syncResult = todosUpload.uploadTodos(todoEntity,todoChecklist)
+                if(syncResult.isSuccess){
+                    // update as uploaded
+                    todosUpload.updateTodoAsUploaded(uniqueId)
+
+                }else{
+                    // Create log
+                    Log.e("Sync", "Failed to upload todo: $uniqueId ${syncResult.errorMessage}")
+                }
+            }
+        }
     }
 }
