@@ -2,7 +2,7 @@ package com.example.allhome.todo.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.allhome.data.DAO.TodoSubTasksDAO
+import com.example.allhome.data.DAO.TodoChecklistsDAO
 import com.example.allhome.data.DAO.TodosDAO
 import com.example.allhome.data.entities.TodoEntity
 import com.example.allhome.data.entities.TodoChecklistEntity
@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ViewTodoFragmentViewModel( private val todosDAO: TodosDAO,val todoSubTasksDAO: TodoSubTasksDAO):ViewModel() {
+class ViewTodoFragmentViewModel( private val todosDAO: TodosDAO,val todoSubTasksDAO: TodoChecklistsDAO):ViewModel() {
     var mLoadData:MutableLiveData<Boolean> = MutableLiveData()
     var mDeleteSelectedTask:MutableLiveData<Boolean> = MutableLiveData()
     var mDeleteSelectedAndFutureTask:MutableLiveData<Boolean>  = MutableLiveData()
@@ -101,7 +101,7 @@ class ViewTodoFragmentViewModel( private val todosDAO: TodosDAO,val todoSubTasks
     }
 
 }
-class ViewTodoFragmentViewModelFactory( private val todosDAO: TodosDAO,private val todoSubTasksDAO: TodoSubTasksDAO) : ViewModelProvider.Factory {
+class ViewTodoFragmentViewModelFactory( private val todosDAO: TodosDAO,private val todoSubTasksDAO: TodoChecklistsDAO) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ViewTodoFragmentViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

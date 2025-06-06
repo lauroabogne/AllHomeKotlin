@@ -2,7 +2,6 @@ package com.example.allhome
 
 import android.app.Application
 import com.example.allhome.data.AllHomeDatabase
-import java.util.*
 
 class AllHomeBaseApplication : Application() {
 
@@ -29,7 +28,7 @@ class AllHomeBaseApplication : Application() {
     val expensesDAO by lazy { database.getExpensesDAO()}
     val expensesCategoryDAO by lazy { database.getExpensesCategoriesDAO() }
     val todosDAO by lazy{database.getTodosDAO()}
-    val todoSubTasksDAO by lazy{database.getTodoSubTasksDAO()}
+    val todoCheckListDAO by lazy{database.getTodoSubTasksDAO()}
     val logsDAO by lazy{database.getLogsDAO()}
     val alarmsRecordsDAO by lazy{database.getAlarmsRecordsDAO()}
     val theme by lazy { R.style.AppThemeB }

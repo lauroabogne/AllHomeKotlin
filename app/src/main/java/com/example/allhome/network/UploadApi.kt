@@ -34,6 +34,9 @@ interface UploadApi {
         @Part images: List<MultipartBody.Part>? =null
     ): Response<ResponseBody>
 
+    @POST("mobileapi/Todos/uploadTodosWithItems")
+    suspend fun uploadTodoWithChecklists(@Body requestBody: RequestBody): Response<ResponseBody>
+
 //    @POST("/")
 //    suspend fun uploadExpenses(@Body expenses: List<ExpensesEntity>): Response<ResponseBody>
 //    @POST("upload/grocery-lists")

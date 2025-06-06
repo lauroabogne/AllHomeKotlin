@@ -9,7 +9,7 @@ import androidx.room.withTransaction
 import com.example.allhome.R
 import com.example.allhome.data.AllHomeDatabase
 import com.example.allhome.data.DAO.AlarmRecordsDAO
-import com.example.allhome.data.DAO.TodoSubTasksDAO
+import com.example.allhome.data.DAO.TodoChecklistsDAO
 import com.example.allhome.data.DAO.TodosDAO
 import com.example.allhome.data.entities.AlarmRecordsEntity
 import com.example.allhome.data.entities.TodoEntity
@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateEditTodoFragmentViewModel( val database: AllHomeDatabase, private val todosDAO:TodosDAO, private val todoSubTasksDAO: TodoSubTasksDAO,
+class CreateEditTodoFragmentViewModel(val database: AllHomeDatabase, private val todosDAO:TodosDAO, private val todoSubTasksDAO: TodoChecklistsDAO,
                                       private val alarmRecordsDAO:AlarmRecordsDAO): ViewModel() {
 
     var mTodoId:MutableLiveData<Int> = MutableLiveData()
@@ -255,7 +255,7 @@ class CreateEditTodoFragmentViewModel( val database: AllHomeDatabase, private va
 
 
 }
-class CreateEditTodoFragmentViewModelFactory(private val database: AllHomeDatabase,private val todosDAO: TodosDAO,private val todoSubTasksDAO: TodoSubTasksDAO, private val alarmRecordsDAO:AlarmRecordsDAO) : ViewModelProvider.Factory {
+class CreateEditTodoFragmentViewModelFactory(private val database: AllHomeDatabase, private val todosDAO: TodosDAO, private val todoSubTasksDAO: TodoChecklistsDAO, private val alarmRecordsDAO:AlarmRecordsDAO) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CreateEditTodoFragmentViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

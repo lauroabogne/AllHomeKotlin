@@ -35,7 +35,7 @@ abstract class AllHomeDatabase : RoomDatabase() {
     abstract fun getExpensesGroceryListItemCategoryDAO():ExpensesGroceryListItemCategoryDAO
     abstract fun getExpensesDAO():ExpensesDAO
     abstract fun getTodosDAO():TodosDAO
-    abstract fun getTodoSubTasksDAO():TodoSubTasksDAO
+    abstract fun getTodoSubTasksDAO():TodoChecklistsDAO
     abstract fun getLogsDAO():LogsDAO
     abstract fun getAlarmsRecordsDAO():AlarmRecordsDAO
     abstract fun getExpensesCategoriesDAO():ExpensesCategoriesDAO
